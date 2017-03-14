@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ifebinbin</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		ul{
+			list-style-type:none;
+			margin:0;
+			padding:0;
+		}
+		a{
+			display: block;
+			width:15px; 
+			text-align:center;
+			background-color:red;
+			margin: 1px;
+			padding:4px;
+			transform:rotateX(180deg);
+		}
+		li{
+			float: left;
+		}
+		div{
+			position: absolute;
+			left: 50px;
+			top:200px;
+			transform:rotateX(180deg);
+		}
+	</style>
+</head>
+<body>
+<input type="text" name="text" id="input">
+<button id="left-in" >左侧入</button>
+<button id="right-in">右侧入</button>
+<button id="left-out">左侧出</button>
+<button id="right-out">右侧出</button>
+<button id="sort">排序</button>
+<div style="margin: 10px">
+<ul id="unique">
+<!-- <li><a style="height: 50px">51</a></li>
+<li><a style="height: 20px">21</a></li>
+<li><a style="height: 30px">31</a></li> -->
+</ul>
+</div>
+<script type="text/javascript">
+			function checkNumber(){
+				var value=document.getElementById("input").value;
+				if(value<10 ||value>100){
+					alert("请出入10-100之间的数字");
+					return false;
+				}
+			}
+
+			function rightIn(){
+				var node=document.getElementById("unique");
+				if(node.childNodes.length>60){//队列元素数量最多限制为60个，当超过60个时，添加元素时alert出提示
+					alert("太多数据");
+					return;
+				}
+				var value=document.getElementById("input").value;
+				if(checkNumber()==false){
+					return;
+				}
+				var li=document.createElement("li");
+				li.innerHTML='<a style="height:'+value+'px">'+value+'</a>';	
+				addEvent1(li);
+				node.appendChild(li);
+			}
+			function leftIn(){
+				var node=document.getElementById("unique");
+				if(node.childNodes.length>60){
+					alert("太多数据");
+					return;
+				}
+				var value=document.getElementById("input").value;
+				if(checkNumber()==false){
+					return;
+				}
+				var first=node.firstChild;
+				var li=document.createElement("li");
+				li.innerHTML='<a style="height:'+value+'px">'+value+'</a>';				
+				addEvent1(li);
+				node.insertBefore(li,first);
+			}
+			function rightOut(){
+				var node=document.getElementById("unique");
+				for(var i=0;i<node.childNodes.length;i++){
+					var child=node.childNodes[i];
+					if(child.nodeType==3){
+						node.removeChild(child);
+					}
+				}
+				var last=node.lastChild;
+				if(node.childNodes.length==0){
+					return false;
+				}
+				var result=last.innerText;
+				node.removeChild(last);
+				alert(result);
+			}
+			function leftOut(){
+				var node=document.getElementById("unique");
+				for(var i=0;i<node.childNodes.length;i++){
+					var child=node.childNodes[i];
+					if(child.nodeType==3){
+						node.removeChild(child);
+					}
+				}
+				var first=node.firstChild;
+				if(node.childNodes.length==0){
+					return false;
+				}
+				var result=first.innerText;
+				node.removeChild(first);
+				alert(result);
+			}
+			// function addEvent(){
+			// 	var nodes=document.getElementsByTagName("li");
+			// 	for(var i=0;i<nodes.length;i++){
+			// 	nodes[i].onclick=function(){
+			// 		removeSelf(this);
+			// 	}	
+			// 	}
+				
+			// }
+			function addEvent1(element){
+				element.onclick=function(){
+					removeSelf(this);
+				}
+			}
+			function removeSelf(element){
+				var ul=document.getElementById("unique");
+				ul.removeChild(element);
+			}
+			function sortArray(){
+				//获得数据（li下的a标签的value），存入数组arr
+				var arr=[];
+				var a=document.getElementsByTagName("a");
+				for (var i = 0; i < a.length; i++) {
+					arr.push(a[i].innerText);
+				}
+				//对数据进行冒泡排序
+				for (var i = 0; i < arr.length; i++) {
+					for (var j = 0,stop=arr.length-i;j < stop; j++) {
+						if(arr[j]>arr[j+1]){
+							swap(arr,j,j+1);
+						}
+					}
+				}
+				var ul=document.getElementById("unique");
+				var li=document.getElementsByTagName("li");
+				console.log(li.length);
+				//从后往前删节点
+				for (var i = li.length-1;i>= 0;i--){
+					ul.removeChild(li[i]);
+				}
+				//增加排序后的节点
+				for (var i = 0; i < arr.length; i++) {
+				var li=document.createElement("li");
+				li.innerHTML='<a style="height:'+arr[i]+'px">'+arr[i]+'</a>';	
+				ul.appendChild(li);
+				}
+			}
+			function swap(arrs,firstIndex,secondIndex){
+				//如果第一项应该在第二项之后，两者交换顺序
+					var temp=arrs[firstIndex];
+					arrs[firstIndex]=arrs[secondIndex];
+					arrs[secondIndex]=temp;
+
+			}
+
+			document.getElementById("right-in").addEventListener("click",rightIn);
+			document.getElementById("left-in").addEventListener("click",leftIn);
+			document.getElementById("right-out").addEventListener("click",rightOut);
+			document.getElementById("left-out").addEventListener("click",leftOut);	
+			document.getElementById("sort").addEventListener("click",sortArray);
+	</script>
+</body>
+</html>
