@@ -6,8 +6,9 @@
 	<link rel="stylesheet" type="text/css" href="css/task2.css">
 </head>
 <body>
-<div class="header">
-	<img src="images/header.jpeg">
+<header>
+	<div class="header">
+	<img id="logo" src="images/bd_logo.png">
 	<ul>
 		<li><a href="">导航链接1</a></li>
 		<li><a href="">导航链接2</a></li>
@@ -15,6 +16,7 @@
 		<li><a href="">导航链接4</a></li>
 	</ul>
 </div>
+</header>
 
 <div class="content" style="background-color: #D8D8D8">
 
@@ -23,14 +25,40 @@
 <h3>文章二级标题</h3>
 <p class="author">文章作者 文章发表时间</p>
 <p>这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，换行了<br/>这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，<a href="www.baidu.com">这里有一个链接</a>
-这是一个很长很长的段落，这是一个很长很长的段落，<img src="images/browser.jpg"><br/>这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，</p>
+这是一个很长很长的段落，这是一个很长很长的段落，<br/><img src="images/browser.jpg"><br/>这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，</p>
 </div>
-
+<div id="pic">
+	<h2>图片</h2>
+		<div class="flower_con">
+			<figure>
+				<figcaption>好看的图片</figcaption>
+				<img  class="flower" src="images/flower.jpg">
+			</figure>
+		</div>
+		<div class="flower_con">
+			<figure>
+				<figcaption>好看的图片</figcaption>
+				<img  class="flower" src="images/flower.jpg">
+			</figure>
+		</div>
+		<div class="flower_con">
+			<figure>
+				<figcaption>好看的图片</figcaption>
+				<img  class="flower" src="images/flower.jpg">
+			</figure>
+		</div>
+		<div class="flower_con">
+			<figure>
+				<figcaption>好看的图片</figcaption>
+				<img  class="flower" src="images/flower.jpg">
+			</figure>
+		</div>
+</div>
 <div id="last">
 	<h2>最后一篇文章一级标题</h2>
 	<h3>文章二级标题</h3>
 	<p class="author">文章作者 文章发表时间</p>	
-	<ol>
+	<ol style="list-style-position: inside">
 		<li>排名1</li>
 		<li>排名2</li>
 		<li>排名3</li>
@@ -65,28 +93,63 @@
 </div>
 
 <div id="side">
-	<h2>这里以后是这个侧栏，这是侧栏的标题</h2>
-	<div>	
-	请输入邮箱地址<input class="all" type="text" name="text" value="这是一个文本输入框"><br/>
-	<p style="color: #808080;font-size: 13px">邮箱地址按要求格式输入</p>
-	请输入密码：<input type="password" name="password" ><br>
-	请重新输入密码：<input type="password" name="password" ><br>
-	密码为6-16位英文数字<br>
-	性别<input class="all" type="radio" name="sex" value="male" checked>男
-	<input class="all" type="radio" name="sex" value="female">女
-	<br>城市<select class="all">
-		<option>北京</option>
-		<option>上海</option>
-		<option>广州</option>
-	</select>
-	<br>爱好<input class="all"type="checkbox" name="checkbox">运动
-	<input class="all" type="checkbox" name="checkbox">艺术
-	<input class="all" type="checkbox" name="checkbox">科学
-	<br>个人描述：<textarea class="all" cols="20" rows="3"></textarea>
+	<h4>这里以后是这个侧栏，这是侧栏的标题</h4>
+	<div id="sideTable">
+	<table border="0">
+		<tr>
+			<td class="td1">请输入邮箱地址</td>
+			<td>
+				<input class="all" type="text" name="text" placeholder="这是一个文本输入框">
+				<p style="color: #808080;font-size: 13px">邮箱地址按要求格式输入</p>
+			</td>
+		</tr>
+		<tr>
+			<td class="td1">请输入密码</td>
+			<td><input type="password" name="password" ></td>
+		</tr>
+		<tr>
+			<td class="td1">请重新输入密码</td>
+			<td><input type="password" name="password" ><p style="color: #808080;font-size: 13px">密码为6-16位英文数字</p></td>
+		</tr>
+		<tr>
+			<td class="td1">性别</td>
+			<td>
+				<input class="all" type="radio" name="sex" value="male" checked>男
+				<input class="all" type="radio" name="sex" value="female">女
+			</td>
+		</tr>
+		<tr>
+			<td class="td1">城市</td>
+			<td>
+				<select class="all">
+					<option>北京</option>
+					<option>上海</option>
+					<option>广州</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class="td1">爱好</td>
+			<td>
+				<input class="all"type="checkbox" name="checkbox">运动
+				<input class="all" type="checkbox" name="checkbox">艺术
+				<input class="all" type="checkbox" name="checkbox">科学
+			</td>
+		</tr>
+		<tr>
+			<td class="td1">个人描述</td>
+			<td width="400px"><textarea class="all" cols="50" rows="3"></textarea></td>
+		</tr>
+
+	</table>
 	</div>
-	<button id="btn"type="submit">提交</button>
+	<button id="btn"type="submit">提交</button>	
+	</div>
+	
 </div>
 </div>
-<div class="footer"><p>版权所有@</p></div>
+<footer>
+	版权所有&copy;
+</footer>
 </body>
 </html>
