@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JavaScript和树（一）</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		body{
+			text-align: center;
+		}
+		div{
+			border: 2px solid black;
+			display: flex;
+			margin: 36px 24px;
+			flex-grow: 1
+		}
+		#main{
+			width: 80%;
+			height: 300px;
+			margin: 30px auto;
+		}
+	</style>
+</head>
+<body>
+<div id="main">
+	<div >
+		<div>
+			<div></div>
+			<div></div>
+		</div>
+		<div>
+			<div></div>
+			<div></div>
+		</div>
+		</div>
+	<div>
+		<div>
+			<div></div>
+			<div></div>
+		</div>
+		<div>
+			<div></div>
+			<div></div>
+		</div>
+	</div>
+</div>
+<button id="pre">前序</button>
+<button id="mid">中序</button>
+<button id="last">后序</button>
+</body>
+<script type="text/javascript">
+	var pre=document.getElementById("pre");
+	var mid=document.getElementById("mid");
+	var last=document.getElementById("last");
+	var divs=[];
+	var time=null;
+	var node=document.getElementById("main");
+
+	pre.onclick=function(){
+		clear();
+		preRun(node);
+		changeColor();
+	}
+	mid.onclick=function(){
+		clear();
+		midRun(node);
+		changeColor();
+	}
+	last.onclick=function(){
+		clear();
+		lastRun(node);
+		changeColor();
+	}
+	function lastRun(){
+		if(!(node == null)){
+			preRun(node.firstElementChild);
+			preRun(node.lastElementChild);
+			divs.push(node);
+		}
+	}
+	function midRun(){
+			if(!(node == null)){
+			preRun(node.firstElementChild);
+			divs.push(node);
+			preRun(node.lastElementChild);
+		}
+	}
+	function preRun(node){
+		if(!(node == null)){
+			divs.push(node);
+			preRun(node.firstElementChild);
+			preRun(node.lastElementChild);
+		}
+	}
+	function changeColor(){
+		var i=0;
+		divs[i].style.background="red";
+		time=setInterval(function(){
+			i++;
+			if(i<divs.length){
+				divs[i-1].style.background="white";
+				divs[i].style.background="red";
+			}else{
+				clearInterval(time);
+				divs[divs.length-1].style.background="white";
+			}
+		},500);
+	}
+	function clear(){
+		divs=[];
+		clearInterval(time);
+		var all=document.getElementsByTagName("div");
+		for (var i = 0; i < all.length; i++) {
+			all[i].style.background="white";
+		}
+	}
+</script>
+</html>
