@@ -22,41 +22,121 @@
 	</style>
 </head>
 <body>
-<div id="main">Super
-	<div >Code
-		<div >Apple
-			<div>Pear</div>
-			<div>Pig</div>
-			<div>Cola</div>
-			<div>Soccer</div>
+<div id="main"><span>Super</span>
+	<div ><span>Code</span>
+		<div ><span>Apple</span>
+			<div><span>Pear</span></div>
+			<div><span>Pig</span></div>
+			<div><span>Cola</span></div>
+			<div><span>Soccer</span></div>
 		</div>
-		<div >Phone
+		<div ><span>Phone</span>
 		</div>
 		<div >
-			<div>Book</div>
-			<div>School</div>
+			<div><span>Book</span></div>
+			<div><span>School</span></div>
 		</div>
 	</div>
-	<div >Note
-		<div>Human
-			<div>Cod</div>
-			<div>Operate</div>
-			<div>Man</div>
+	<div ><span>Note</span>
+		<div><span>Human</span>
+			<div><span>Cod</span></div>
+			<div><span>Operate</span></div>
+			<div><span>Man</span></div>
 		</div>
-		<div>Program
-			<div>Benment
-			<div>Cat</div>
+		<div><span>Program</span>
+			<div><span>Benment</span>
+			<div><span>Cat</span></div>
 			</div>
-			<div>Glass</div>
+			<div><span>Glass</span></div>
 		</div>
 	</div>
-	<div >Fish</div>
+	<div ><span>Fish</span></div>
 </div>
 <button id="pre">遍历</button>
 <input type="text" name="check" id="check">
-<button id="mid">查询</button>
+<button id="search">查询</button>
 </body>
 <script type="text/javascript">
-	
+	var main=document.getElementById("main");
+	var arr=[];
+	var pre=document.getElementById("pre");
+	var search=document.getElementById("search");
+	var time=null;
+	pre.onclick=function () {
+		clear();
+		run(main);
+		changeColor();
+
+	}
+	search.onclick=function(){
+		clear();
+		run(main);
+		var value=document.getElementById("check").value;
+		var i=0;
+		var flag=0;
+		//先单独查最外层的Super，如果等于输入框中的值，就直接跳出
+		if(arr[i].getElementsByTagName("span")[0].innerText==value){
+			arr[i].style.background="yellow";
+			return;
+		}
+		arr[i].style.background="red";
+		time=setInterval(function(){
+			i++;
+			if (i<arr.length) {
+				if(arr[i].getElementsByTagName("span")[0].innerText==value){
+					arr[i-1].style.background="white";
+					arr[i].style.background="yellow";
+					clearInterval(time);
+					return;
+				}
+				flag=1;
+				arr[i-1].style.background="white";
+				arr[i].style.background="red";
+			}else{
+				clearInterval(time);
+				arr[arr.length-1].style.background="white";
+				if(flag==1){
+					alert("no element");
+				}
+			}
+		},50);
+	}
+	function clear(){
+		arr=[];
+		clearInterval(time);
+		var all=document.getElementsByTagName("div");
+		for (var i = 0; i < all.length; i++) {
+			all[i].style.background="white";
+		}
+	}
+	function run(node){
+		if(!(node==null)){
+			arr.push(node);
+			var child=node.getElementsByTagName("div");
+			for (var i = 0;i<child.length; i++) {
+				if(child[i].parentNode ==node){
+				run(child[i]);
+			}
+			}
+
+		}
+	}
+	function changeColor(){
+		var i=0;
+		arr[i].style.background="red";
+		time=setInterval(function(){
+			i++;
+			if (i<arr.length) {
+				arr[i-1].style.background="white";
+				arr[i].style.background="red";
+			}else{
+				clearInterval(time);
+				arr[arr.length-1].style.background="white";
+			}
+		},500);
+	}
+
 </script>
 </html>
+
+
