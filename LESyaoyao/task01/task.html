@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>任务一：表单（一）单个表单项的检验</title>
+	<meta charset="utf-16">
+	<style type="text/css">
+		div{
+			position: absolute;
+			top:200px;
+			left: 30%;
+		}
+		#name{
+			border-radius: 5px;
+			outline: none;
+		}
+		#msg{
+			color: #a59e9e;
+		}
+		#err1,#err2{
+			display: none;
+			color: red;
+		}
+		#ok1{
+			display: none;
+			color: green;
+		}
+		#check{
+			background-color: blue;
+			border-radius: 5px;
+			color: white;
+		}
+	</style>
+</head>
+<body>
+	<div>
+	名称<input type="text" name="name" id="name">
+	<button id="check">验证</button><br/>
+	<span id="msg">必填，长度为4-16个字符</span>
+	<span id="err1" >姓名不能为空</span>
+	<span id="err2">格式不正确</span>
+	<span id="ok1" >名称格式正确</span>
+	</div>
+</body>
+<script type="text/javascript">
+	var btn=document.getElementById("check");
+	var msg=document.getElementById("msg");
+	var err1=document.getElementById("err1");
+	var err2=document.getElementById("err2");
+	var ok1=document.getElementById("ok1");
+
+	btn.onclick=function(){
+		var name=document.getElementById("name");
+		var value=name.value;
+		var count=0;
+		for (var i = 0; i < value.length; i++) {
+			var signal=value.charCodeAt(i);
+			if(signal>=0x00 && signal<=0xFF){
+				count++;
+			//	console.log("英文");
+			}else if(signal>=0xD800 && signal<=0xDBFF){
+			//	console.log("复杂中文");
+			}
+			else{
+			//	console.log("简单中文");
+				count+=2;
+			}
+		}
+		if(!value){
+			msg.style.display="none";
+			err2.style.display="none";
+			ok1.style.display="none";
+			err1.style.display="inline";
+			name.style.border="1px solid red";
+		}
+		else if(count<4 || count>16){
+			msg.style.display="none";
+			ok1.style.display="none";
+			err1.style.display="none";
+			err2.style.display="inline";
+			name.style.border="1px solid red";
+		}else{
+			msg.style.display="none";
+			err1.style.display="none";
+			err2.style.display="none";
+			ok1.style.display="inline";
+			name.style.border="1px solid green";
+		}
+	}
+</script>
+</html>
