@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>任务二：表单（二）多个表单项的动态校验</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		body{
+			width: 100%;
+			height: 900px;
+		}
+		form{
+			position: relative;
+			top:200px;
+			left: 30%;
+		}
+		input{
+			border-radius: 5px;
+			outline: none;
+		}
+		span{
+			display: none;
+			color: #a59e9e;
+		}
+	</style>
+</head>
+<body>
+<!-- <form action="" method="post"> -->
+	<div>
+	<label>名称</label>
+	<input type="text" name="name" id="name" onfocus="info(1)" onblur="checkName(1)"><br>
+	<span id="1">必填，长度为4-16个字符</span>
+	<lable>密码</lable>
+	<input type="password" name="psd" id="pwd" onfocus="info(2)" onblur="checkPwd(2)" ><br>
+	<span id="2">请输入密码,正确格式为：以字母开头，长度在6~18之间，只能包含字符、数字和下划线。</span>
+	<span ></span>
+	<label>密码确认</label>
+	<input type="password" name="rePwd" id="rePwd" onfocus="info(3)" onblur="doublePwd(3)"><br>
+	<span id="3">再次输入相同密码</span>
+	<label>邮箱</label>
+	<input type="text" name="email" id="email" onfocus="info(4)" onblur="checkEmail(4)"><br>
+	<span id="4">输入正确的邮箱格式</span>
+	<span></span>
+	<label>手机</label>
+	<input type="text" name="mobile" id="mobile" onfocus="info(5)" onblur="checkPhone(5)"><br>
+	<span id="5">输入11位数字</span>
+	<button id="check">提交</button><br/>
+	</div>
+<!-- </form>	 -->
+</body>
+<script type="text/javascript">
+	function info(num){
+		var span=document.getElementById(num);
+		span.class="info";
+		span.style.display="block";
+	}
+
+	function checkName(num){
+		var name=document.getElementById("name");
+		var value=name.value;
+		var count=0;
+		var span=document.getElementById(num);
+		for (var i = 0; i < value.length; i++) {
+			var signal=value.charCodeAt(i);
+			if(signal>=0x00 && signal<=0xFF){
+				count++;
+			//	console.log("英文");
+			}else if(signal>=0xD800 && signal<=0xDBFF){
+			//	console.log("复杂中文");
+			}
+			else{
+			//	console.log("简单中文");
+				count+=2;
+			}
+		}
+		if(!value){	
+			span.style.color="red";		
+			name.style.border="1px solid red";
+			span.innerText=" 名称不能为空";
+		}
+		else if(count<4 || count>16){
+			span.style.color="red";		
+			name.style.border="1px solid red";
+			span.innerText=" 名称长度不正确";
+		}else{
+			span.style.color="green";
+			name.style.border="1px solid green";
+			span.innerText=" 名称可用";
+			return 1;
+
+		}
+	}
+
+	function checkPwd(num){
+		var span=document.getElementById(num);
+		var pwd=document.getElementById('pwd');
+		var value=pwd.value;
+		var patten=/^[a-zA-Z]\w{5,17}$/;
+		if(!value){
+			span.style.color="red";		
+			pwd.style.border="1px solid red";
+			span.innerText=" 密码不能为空";
+		}else if(!patten.exec(value)){
+			span.style.color="red";		
+			pwd.style.border="1px solid red";
+			span.innerText=" 密码不规则";
+		}else{
+			span.style.color="green";
+			pwd.style.border="1px solid green";
+			span.innerText=" 密码可用";
+			return 1;
+		}
+
+	}
+
+	function doublePwd(num){
+		var span=document.getElementById(num);
+		var pwd1=document.getElementById('pwd');
+		var pwd2=document.getElementById('rePwd')
+		var value1=pwd1.value;
+		var value2=pwd2.value;
+		if (!value1) {
+			span.style.color="red";		
+			pwd.style.border="1px solid red";
+			span.innerText=" 密码不能为空";
+		}else if(!value2){
+			span.style.color="red";		
+			pwd.style.border="1px solid red";
+			span.innerText=" 密码确认不能为空";
+		}else if(value1!=value2){
+			span.style.color="red";		
+			pwd.style.border="1px solid red";
+			span.innerText=" 两次密码不相同";
+		}else{
+			span.style.color="green";
+			pwd.style.border="1px solid green";
+			span.innerText=" 密码输入一致";
+			return 1;
+		}
+	}
+	function checkEmail(num){
+		var email=document.getElementById("email");
+		var value=email.value;
+		var span=document.getElementById(num);
+		var patten=/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+		if (!value) {
+			span.style.color="red";		
+			email.style.border="1px solid red";
+			span.innerText=" 邮箱不能为空";
+		}else if(!patten.exec(value)){
+			span.style.color="red";		
+			email.style.border="1px solid red";
+			span.innerText=" 邮箱格式不对";
+		}else{
+			span.style.color="green";
+			email.style.border="1px solid green";
+			span.innerText=" 邮箱格式正确";
+			return 1;
+		}
+	}
+	function checkPhone(num){
+		var phone=document.getElementById("mobile");
+		var value=phone.value;
+		var span=document.getElementById(num);
+		var patten=/^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
+		if (!value) {
+			span.style.color="red";		
+			phone.style.border="1px solid red";
+			span.innerText=" 手机号码不能为空";
+		}else if(!patten.exec(value)){
+			span.style.color="red";		
+			phone.style.border="1px solid red";
+			span.innerText=" 手机号码格式不对";
+		}else{
+			span.style.color="green";
+			phone.style.border="1px solid green";
+			span.innerText=" 手机号码格式正确";
+			return 1;
+		}
+	}
+	var submit=document.getElementById("check");
+	submit.onclick=function(){
+		if(checkName(1)==1 && checkPwd(2)==1 && doublePwd(3)==1 && checkEmail(4)==1 && checkPhone(5)==1){
+			alert("提交成功");
+		}else{
+			alert("输入有误");
+		}
+	}
+</script>
+</html>
