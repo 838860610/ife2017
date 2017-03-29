@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>任务四：听指令的小方块（一）</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		#main{
+			padding: 20px;
+		}
+		#top{
+			position: relative;
+			top:10px;
+			left: 100px;
+		}
+		#left{
+			position: absolute;
+			top: 80px;
+			left: 80px;
+		}
+		#do{
+			position: absolute;
+			top:600px;
+			left: 100px;
+		}
+		ul{
+			list-style-type: none;
+		}
+		#topNum li{
+			float: left;
+			width: 52px;
+			height: 52px;
+		}
+		#leftNum li{
+			width: 52px;
+			height: 52px;
+		}
+		#middle{
+			position: absolute;
+			top: 73px;
+			left: 150px;
+		}
+		#middle ul{
+			padding: 0;
+			margin: 0;
+			width: 550px;
+			height: 580px;
+		}
+		#middle li{
+			float: left;
+			height: 50px;
+			width: 50px;
+			border: 1px solid black;
+		}
+		#move div{
+			background-color: red;
+			height: 50px;
+			width: 50px;
+		}
+		#span{
+			display: block;
+			height: 20px;
+			width: 50px;
+			background-color: blue;
+		}
+		#move{
+			position: absolute;
+			top: 74px;
+			left: 151px;
+			padding: 0;
+			margin: 0;
+			width: 50px;
+			height: 50px;
+		}
+	</style>
+</head>
+<body>
+<div id="main">
+	<div id="top">
+	<ul id="topNum">
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+		<li>6</li>
+		<li>7</li>
+		<li>8</li>
+		<li>9</li>
+		<li>10</li>
+	</ul>
+	</div>
+	<div id="middle">
+		<ul>
+			<li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+			<li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+			<li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+			<li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+			<li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+			<li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+			<li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+			<li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+			<li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+			<li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+		</ul>
+	</div>
+	<div id="left">
+	<ul id="leftNum">
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+		<li>6</li>
+		<li>7</li>
+		<li>8</li>
+		<li>9</li>
+		<li>10</li>
+	</ul>
+	</div>	
+
+</div>
+<div id="do">
+<input type="text" name="inp" id="inp">
+<button id="btn">执行</button>
+</div>
+<div id="move">
+	<div>
+	<span id="span"></span>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+	var btn=document.getElementById("btn");
+
+	btn.onclick=function(){
+		var value=document.getElementById("inp").value;
+		if(value=="1"){
+			turnRight();
+			//console.log(value);
+		}else if(value=="2"){
+			turnLeft();
+			//console.log(value);
+		}else if(value=="3"){
+			back();
+			//console.log(value);
+		}else{
+			//console.log("no");
+			
+		}
+	}
+
+	function turnRight() {
+		var span=document.getElementById("span");
+		var move=document.getElementById("move");
+		// span.style.float="Right";
+		// span.style.height="50px";
+		// span.style.width="20px";
+		move.style.transform="rotate(90deg)";	
+		
+	}
+	function turnLeft(){
+		var move=document.getElementById("move");
+		move.style.transform="rotate(-90deg)";	
+	}
+	function back(){
+		var move=document.getElementById("move");
+		move.style.transform="rotate(180deg)";	
+
+	}
+</script>
+</html>
